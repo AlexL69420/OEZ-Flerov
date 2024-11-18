@@ -24,6 +24,18 @@ export default function Header() {
           </h1>
         </div>
 
+        <div className="flex w-1/4 items-center justify-around  text-white dark:text-slate-300">
+          <Link to="/Help">
+            <h3 className="hover:underline">Помощь</h3>
+          </Link>
+          <Link to="/Registration">
+            <h3 className="hover:underline">Регистрация</h3>
+          </Link>
+          <Link to="/History">
+            <h3 className="hover:underline">История</h3>
+          </Link>
+        </div>
+
         <div className="flex w-1/6 flex-row items-center justify-around">
           <div className="flex flex-row gap-4">
             <Button
