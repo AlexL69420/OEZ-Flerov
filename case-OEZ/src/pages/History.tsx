@@ -1,7 +1,19 @@
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { FaSearch } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 
 export default function History() {
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/Registration" state={{ from: location }} replace />;
+  }
+
   return (
     <main className="flex min-h-screen flex-col gap-2 bg-white text-black dark:bg-slate-800 dark:text-white">
       <div className="flex h-20 w-11/12 flex-row items-center justify-end">

@@ -8,6 +8,7 @@ import Help from "./pages/Help.tsx";
 import History from "./pages/History.tsx";
 import { RegistrationForm } from "./pages/RegistrationForm.tsx";
 import Profile from "./pages/Profile.tsx";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,10 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+  <AuthProvider>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+    ,
+  </AuthProvider>,
 );

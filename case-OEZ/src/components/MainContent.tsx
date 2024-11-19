@@ -1,9 +1,10 @@
 "use client";
 
 import { Link } from "react-router-dom";
-import { Label, TextInput, Button } from "flowbite-react";
+import { FileInput, Label, TextInput, Button } from "flowbite-react";
 import axios from "axios";
 import { useState } from "react";
+import { FaRegThumbsUp } from "react-icons/fa";
 
 export function MainContent() {
   const [neuroResponse, setNeuroResponse] = useState("");
@@ -111,6 +112,56 @@ export function MainContent() {
           </div>
         </div>
 
+        <div className="flex flex-col gap-2">
+          <Label>Или выберите файл</Label>
+          <div className="flex w-full ">
+            <Label
+              htmlFor="dropzone-file"
+              className="flex h-64 w-3/4 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+            >
+              <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                <svg
+                  className="mb-4 size-8 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 16"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                  />
+                </svg>
+                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  <span className="font-semibold">
+                    Нажмите или перетащите файл
+                  </span>{" "}
+                  для загрузки
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  mp3, ......, .... (MAX. 100mb (?))
+                </p>
+              </div>
+              <FileInput id="dropzone-file" className="hidden" />
+            </Label>
+          </div>
+          <div className="w-3/4">
+            <div>
+              <Label
+                htmlFor="file-upload-helper-text"
+                value="Альтернативная загрузка"
+              />
+            </div>
+            <FileInput
+              id="file-upload-helper-text"
+              helperText="mp3, ......, .... (MAX. 100mb (?))"
+            />
+          </div>
+        </div>
+
         <div className="flex flex-row gap-3">
           <Button
             color="blue"
@@ -121,7 +172,7 @@ export function MainContent() {
           <Button
             outline
             gradientDuoTone="greenToBlue"
-            className="max-w-36 dark:bg-black "
+            className="max-w-36 dark:bg-black"
             onClick={getNeuroResponse}
           >
             Диагноз ИИ
@@ -130,8 +181,16 @@ export function MainContent() {
       </div>
       <div className="flex w-1/3 flex-col gap-2 rounded-2xl border-2 p-5">
         <h1> AI diagnosis</h1>
-        <p> {neuroResponse}</p>
+        <div className="h-40 w-11/12 rounded-2xl border-2 p-2">
+          <p> {neuroResponse}</p>
+        </div>
         <h1> AI cure</h1>
+        <div className="h-40 w-11/12 rounded-2xl border-2 p-2">
+          <p> {neuroResponse}</p>
+        </div>
+        <Button color="success" className="w-10 dark:bg-black">
+          <FaRegThumbsUp />
+        </Button>
       </div>
     </main>
   );

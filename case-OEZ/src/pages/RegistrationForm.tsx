@@ -1,9 +1,26 @@
 "use client";
 
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { useAuth } from "../contexts/AuthContext";
+import { login } from "../services/authService";
 
 export function RegistrationForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login: authLogin } = useAuth();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await login(email, password);
+      authLogin(response.token, email, password);
+    } catch (error) {
+      console.error("Login failed", error);
+    }
+  };
+
   return (
     <main className="flex min-h-screen  justify-center bg-blue-500 py-8 text-black dark:bg-slate-700 dark:text-white">
       <form className="flex w-1/3 min-w-72 max-w-md flex-col gap-4  rounded-2xl bg-white p-5 text-black dark:bg-slate-800 dark:text-white">
@@ -32,6 +49,7 @@ export function RegistrationForm() {
             type=""
             placeholder="doctor@gmail.com"
             required
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div>
@@ -43,6 +61,7 @@ export function RegistrationForm() {
             type="password"
             placeholder="123456789"
             required
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="flex items-center gap-2">
@@ -54,6 +73,7 @@ export function RegistrationForm() {
             type="submit"
             color="blue"
             className=" w-1/2  bg-blue-500  dark:bg-slate-900 dark:hover:bg-slate-500"
+            onClick={handleSubmit}
           >
             Отправить
           </Button>

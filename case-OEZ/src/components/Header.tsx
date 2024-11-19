@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
 import { Avatar } from "flowbite-react";
 import { DarkThemeToggle } from "flowbite-react";
+import { useAuth } from "../contexts/AuthContext";
 
 ("use client");
 
@@ -9,6 +10,7 @@ import { VscAccount } from "react-icons/vsc";
 import { FiActivity } from "react-icons/fi";
 
 export default function Header() {
+  const { userEmail } = useAuth();
   return (
     <main className="flex h-16 w-full items-center justify-around bg-blue-700 dark:bg-slate-800">
       <div className="flex w-11/12 justify-between gap-2">
@@ -37,6 +39,7 @@ export default function Header() {
         </div>
 
         <div className="flex w-1/6 flex-row items-center justify-around">
+          <h1 className="text-white">{userEmail}</h1>
           <div className="flex flex-row gap-4">
             <Button
               color="blue"
