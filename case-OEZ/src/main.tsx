@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import Help from "./pages/Help.tsx";
 import History from "./pages/History.tsx";
-import RegistrationForm from "./pages/RegistrationForm.tsx";
+import { RegistrationForm } from "./pages/RegistrationForm.tsx";
 import Profile from "./pages/Profile.tsx";
 
 const router = createBrowserRouter([

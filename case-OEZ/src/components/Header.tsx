@@ -42,7 +42,7 @@ export default function Header() {
               color="blue"
               className="max-h-12 max-w-12 items-center rounded-full bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"
             >
-              <Link to="/options">
+              <Link to="/Profile">
                 <Avatar img={VscAccount} rounded />
               </Link>
             </Button>

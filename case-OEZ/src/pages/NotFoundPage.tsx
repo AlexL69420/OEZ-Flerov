@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 export default function NotFoundPage() {
   return (
     <div className="flex flex-col gap-2">
-      <div>404 Not Found</div>
+      <div>Ошибка: страница не найдена</div>
       <div>
-        <Link to="/" className="underline">
-          go back to homepage
+        <Link to="/" className="text-blue-500 underline">
+          перейти на главную страницу
         </Link>
       </div>
     </div>
