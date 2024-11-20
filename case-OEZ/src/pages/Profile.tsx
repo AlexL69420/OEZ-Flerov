@@ -7,7 +7,7 @@ import { useState } from "react";
 
 export default function Profile() {
   const { logout } = useAuth();
-  const { userEmail, userPassword } = useAuth();
+  const { userEmail, userPassword, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
