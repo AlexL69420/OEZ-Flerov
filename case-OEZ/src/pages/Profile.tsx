@@ -4,10 +4,12 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 
 export default function Profile() {
   const { logout } = useAuth();
   const { userEmail, userPassword, isAuthenticated } = useAuth();
+  const location = useLocation();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +18,18 @@ export default function Profile() {
     logout();
     navigate("/");
   };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+    } catch (error) {
+      console.error("Login failed", error);
+    }
+  };
+
+  if (!isAuthenticated) {
+    return <Navigate to="/Registration" state={{ from: location }} replace />;
+  }
 
   return (
     <main className="flex min-h-screen  justify-center bg-blue-500 py-8 text-black dark:bg-slate-700 dark:text-white">
@@ -35,36 +49,51 @@ export default function Profile() {
             </Link>
           </div>
         </div>
-        <div className="flex  flex-col items-center justify-center">
-          <div className="w-2/3 ">
+        <div className="flex  h-max flex-col items-center justify-center gap-2">
+          <div className="flex h-max w-2/3 flex-col  gap-2">
             <div className="flex h-28 flex-col items-center gap-2">
-              <h1>{userEmail}</h1>
-              <h2>{userPassword}</h2>
-            </div>
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="email1" value="Введите логин" />
+              <h1 className="font-bold">Текущий профиль</h1>
+              <div className="rounded-2xl border-2 border-black p-5 dark:border-white">
+                <h1>Логин: {userEmail}</h1>
+                <h2>Пароль: {userPassword}</h2>
               </div>
-              <TextInput
-                id="email1"
-                type=""
-                placeholder="doctor@gmail.com"
-                required
-                onChange={(e) => setEmail(e.target.value)}
-              />
             </div>
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="password1" value="Введите новый пароль" />
+            <h1 className="font-bold">Изменение профиля</h1>
+            <form className="flex flex-col items-center gap-2 rounded-2xl border-2 border-black p-5 dark:border-white ">
+              <div className="w-1/2">
+                <div className="mb-2 block">
+                  <Label htmlFor="email1" value="Введите логин" />
+                </div>
+                <TextInput
+                  id="email1"
+                  type=""
+                  placeholder="doctor@gmail.com"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
-              <TextInput
-                id="password1"
-                type="password"
-                placeholder="123456789"
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+              <div className="w-1/2">
+                <div className="mb-2 block">
+                  <Label htmlFor="password1" value="Введите новый пароль" />
+                </div>
+                <TextInput
+                  id="password1"
+                  type="password"
+                  placeholder="123456789"
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <Link to="/">
+                <Button
+                  color="blue"
+                  className="dark:bg-slate-900 dark:hover:bg-slate-700"
+                  onClick={handleSubmit}
+                >
+                  Изменить профиль
+                </Button>
+              </Link>
+            </form>
           </div>
           <div className="flex w-11/12 justify-end px-10">
             <Button
