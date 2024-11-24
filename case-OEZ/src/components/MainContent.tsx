@@ -109,14 +109,58 @@ export function MainContent() {
 
           <div className="flex w-11/12 flex-col">
             <div className="mb-2 block">
-              <Label htmlFor="base4" value="Введите свой диагноз" />
+              <Label htmlFor="base4" value="Введите осложнения" />
             </div>
             <div className="flex flex-row items-center gap-2">
               <TextInput
                 id="base4"
                 type="text"
+                placeholder="осложнения"
+                className="w-5/6"
+              />
+              <Link to="/Help">
+                <Button
+                  color="blue"
+                  className="max-h-12 max-w-12 items-center rounded-full bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"
+                >
+                  ?
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex w-11/12 flex-col">
+            <div className="mb-2 block">
+              <Label htmlFor="base5" value="Введите свой диагноз" />
+            </div>
+            <div className="flex flex-row items-center gap-2">
+              <TextInput
+                id="base5"
+                type="text"
                 sizing="md"
                 placeholder="диагноз"
+                className="w-5/6"
+              />
+              <Link to="/Help">
+                <Button
+                  color="blue"
+                  className="max-h-12 max-w-12 items-center rounded-full bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"
+                >
+                  ?
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex w-11/12 flex-col">
+            <div className="mb-2 block">
+              <Label htmlFor="base6" value="Введите рекомендации" />
+            </div>
+            <div className="flex flex-row items-center gap-2">
+              <TextInput
+                id="base6"
+                type="text"
+                placeholder="рекомендации"
                 className="w-5/6"
               />
               <Link to="/Help">
