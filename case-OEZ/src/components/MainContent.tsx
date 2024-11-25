@@ -43,6 +43,7 @@ export function MainContent() {
       });
   };
 
+
   const handleHistoryButtonClick = () => {
     setIsHistoryVisible(!isHistoryVisible);
   };
@@ -296,7 +297,7 @@ export function MainContent() {
           </div>
         </div>
         <div className="flex w-1/3 flex-col gap-2 rounded-2xl border-2 p-5">
-          <h1> AI diagnosis</h1>
+          <h1> AI диагноз</h1>
           <div className="h-40 w-11/12 rounded-2xl border-2 p-2">
             <p> {aiDiagnosis}</p>
           </div>
