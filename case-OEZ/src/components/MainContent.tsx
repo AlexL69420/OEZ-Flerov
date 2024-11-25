@@ -9,17 +9,34 @@ import { BsArrowBarLeft } from "react-icons/bs";
 import HistorySidebar from "./HistorySidebar";
 
 export function MainContent() {
-  const [neuroResponse, setNeuroResponse] = useState("");
+  const [diagnosis, setDiagnosis] = useState("");
+  const [complaints, setComplaints] = useState("");
+  const [status, setStatus] = useState("");
+  const [anamnesis, setAnamnesis] = useState("");
+  const [history, setHistory] = useState("");
+  const [recommendations, setRecommendations] = useState("");
+  const [aiDiagnosis, setAiDiagnosis] = useState("");
+  const [aiResponse, setAiResponse] = useState("");
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
 
   const getNeuroResponse = () => {
+    const data = {
+      diagnosis,
+      complaints,
+      status,
+      anamnesis,
+      history,
+      recommendations,
+    };
+
     axios
-      .get("")
+      .post("/your-backend-endpoint", data)
       .then((response) => {
-        setNeuroResponse(response.data.title.content);
+        setAiDiagnosis(response.data.diagnosis);
+        setAiResponse(response.data.ai_response);
       })
       .catch((error) => {
-        setNeuroResponse("error");
+        console.error("Error fetching AI response:", error);
       });
   };
 
@@ -73,6 +90,8 @@ export function MainContent() {
                 type="text"
                 placeholder="история болезни"
                 className="w-5/6"
+                value={history}
+                onChange={(e) => setHistory(e.target.value)}
               />
               <Link to="/Help">
                 <Button
@@ -95,6 +114,8 @@ export function MainContent() {
                 type="text"
                 placeholder="симптомы"
                 className="w-5/6"
+                value={complaints}
+                onChange={(e) => setComplaints(e.target.value)}
               />
               <Link to="/Help">
                 <Button
@@ -117,6 +138,8 @@ export function MainContent() {
                 type="text"
                 placeholder="осложнения"
                 className="w-5/6"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
               />
               <Link to="/Help">
                 <Button
@@ -140,6 +163,8 @@ export function MainContent() {
                 sizing="md"
                 placeholder="диагноз"
                 className="w-5/6"
+                value={diagnosis}
+                onChange={(e) => setDiagnosis(e.target.value)}
               />
               <Link to="/Help">
                 <Button
@@ -162,6 +187,32 @@ export function MainContent() {
                 type="text"
                 placeholder="рекомендации"
                 className="w-5/6"
+                value={recommendations}
+                onChange={(e) => setRecommendations(e.target.value)}
+              />
+              <Link to="/Help">
+                <Button
+                  color="blue"
+                  className="max-h-12 max-w-12 items-center rounded-full bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"
+                >
+                  ?
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex w-11/12 flex-col">
+            <div className="mb-2 block">
+              <Label htmlFor="base7" value="Введите анамнезис" />
+            </div>
+            <div className="flex flex-row items-center gap-2">
+              <TextInput
+                id="base6"
+                type="text"
+                placeholder="рекомендации"
+                className="w-5/6"
+                value={anamnesis}
+                onChange={(e) => setAnamnesis(e.target.value)}
               />
               <Link to="/Help">
                 <Button
@@ -244,11 +295,11 @@ export function MainContent() {
         <div className="flex w-1/3 flex-col gap-2 rounded-2xl border-2 p-5">
           <h1> AI diagnosis</h1>
           <div className="h-40 w-11/12 rounded-2xl border-2 p-2">
-            <p> {neuroResponse}</p>
+            <p> {aiDiagnosis}</p>
           </div>
           <h1> AI cure</h1>
           <div className="h-40 w-11/12 rounded-2xl border-2 p-2">
-            <p> {neuroResponse}</p>
+            <p> {aiResponse}</p>
           </div>
           <Button color="success" className="w-10 dark:bg-black">
             <FaRegThumbsUp />
