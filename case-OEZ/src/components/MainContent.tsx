@@ -7,27 +7,31 @@ import { useState } from "react";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { BsArrowBarLeft } from "react-icons/bs";
 import HistorySidebar from "./HistorySidebar";
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export function MainContent() {
   const [diagnosis, setDiagnosis] = useState("");
-  const [visit, setVisit] = useState(0);
+  const [visit, setVisit] = useState("");
   const [complaints, setComplaints] = useState("");
   const [status, setStatus] = useState("");
-  const [anamnesis, setAnamnesis] = useState(0);
+  const [anamnesis, setAnamnesis] = useState("");
   const [history, setHistory] = useState("");
   const [recommendations, setRecommendations] = useState("");
+  const [patient, setPatient] = useState("");
   const [aiDiagnosis, setAiDiagnosis] = useState("");
   const [aiResponse, setAiResponse] = useState("");
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
 
+  const { isAuthenticated } = useAuth();
+
+  const navigate = useNavigate();
+
   const getNeuroResponse = () => {
     const data = {
-      diagnosis,
       complaints,
       status,
-      anamnesis,
       history,
-      recommendations,
       visit,
     };
 
@@ -42,6 +46,33 @@ export function MainContent() {
       })
       .catch((error) => {
         console.error("Error fetching AI response:", error);
+      });
+  };
+
+  const handleSubmit = () => {
+    if (!isAuthenticated) {
+      navigate("/Registration");
+      return;
+    }
+    const data = {
+      ai_suggestion_id: 0,
+      anamnesis: parseInt(anamnesis),
+      visiting: parseInt(visit),
+      patient,
+      diagnosis,
+      complaints,
+      status,
+      history,
+      recommendations,
+    };
+
+    axios
+      .post("http://localhost:8000/cards/api/medicine/create_card/", data)
+      .then((response) => {
+        console.log("Card created successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error creating card:", error);
       });
   };
 
@@ -73,6 +104,8 @@ export function MainContent() {
                 type="text"
                 placeholder="ФИО"
                 className="w-5/6"
+                value={patient}
+                onChange={(e) => setPatient(e.target.value)}
               />
               <Link to="/Help">
                 <Button
@@ -217,7 +250,7 @@ export function MainContent() {
                 placeholder="анамнезис"
                 className="w-5/6"
                 value={anamnesis}
-                onChange={(e) => setAnamnesis(parseInt(e.target.value))}
+                onChange={(e) => setAnamnesis(e.target.value)}
               />
               <Link to="/Help">
                 <Button
@@ -241,7 +274,7 @@ export function MainContent() {
                 placeholder="день визита"
                 className="w-5/6"
                 value={visit}
-                onChange={(e) => setVisit(parseInt(e.target.value))}
+                onChange={(e) => setVisit(e.target.value)}
               />
               <Link to="/Help">
                 <Button
@@ -308,8 +341,9 @@ export function MainContent() {
             <Button
               color="blue"
               className="max-w-36 hover:bg-blue-500 dark:bg-black dark:hover:bg-slate-700"
+              onClick={handleSubmit}
             >
-              Сохранить
+              Отправить
             </Button>
             <Button
               outline
