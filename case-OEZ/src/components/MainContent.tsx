@@ -30,7 +30,10 @@ export function MainContent() {
     };
 
     axios
-      .post("/your-backend-endpoint", data)
+      .post(
+        "http://localhost:8000/cards/api/ai-recommendations/create_suggestion/",
+        data,
+      )
       .then((response) => {
         setAiDiagnosis(response.data.diagnosis);
         setAiResponse(response.data.ai_response);
