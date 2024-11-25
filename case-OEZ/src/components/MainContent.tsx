@@ -10,9 +10,10 @@ import HistorySidebar from "./HistorySidebar";
 
 export function MainContent() {
   const [diagnosis, setDiagnosis] = useState("");
+  const [visit, setVisit] = useState(0);
   const [complaints, setComplaints] = useState("");
   const [status, setStatus] = useState("");
-  const [anamnesis, setAnamnesis] = useState("");
+  const [anamnesis, setAnamnesis] = useState(0);
   const [history, setHistory] = useState("");
   const [recommendations, setRecommendations] = useState("");
   const [aiDiagnosis, setAiDiagnosis] = useState("");
@@ -27,6 +28,7 @@ export function MainContent() {
       anamnesis,
       history,
       recommendations,
+      visit,
     };
 
     axios
@@ -210,12 +212,36 @@ export function MainContent() {
             </div>
             <div className="flex flex-row items-center gap-2">
               <TextInput
-                id="base6"
+                id="base7"
                 type="text"
-                placeholder="рекомендации"
+                placeholder="анамнезис"
                 className="w-5/6"
                 value={anamnesis}
-                onChange={(e) => setAnamnesis(e.target.value)}
+                onChange={(e) => setAnamnesis(parseInt(e.target.value))}
+              />
+              <Link to="/Help">
+                <Button
+                  color="blue"
+                  className="max-h-12 max-w-12 items-center rounded-full bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"
+                >
+                  ?
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex w-11/12 flex-col">
+            <div className="mb-2 block">
+              <Label htmlFor="base8" value="Введите день визита" />
+            </div>
+            <div className="flex flex-row items-center gap-2">
+              <TextInput
+                id="base8"
+                type="text"
+                placeholder="день визита"
+                className="w-5/6"
+                value={visit}
+                onChange={(e) => setVisit(parseInt(e.target.value))}
               />
               <Link to="/Help">
                 <Button
