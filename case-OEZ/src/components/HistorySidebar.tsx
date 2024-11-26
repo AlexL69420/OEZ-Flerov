@@ -45,11 +45,11 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
   const handleCardSelection = (item) => {
     setCard(
       item.diagnosis,
-      item.visiting.toString,
+      item.visiting.toString(),
       item.complains.join(", "),
       item.status.join(", "),
       item.anamnesis.toString,
-      item.history.toString,
+      item.history.toString(),
       item.recommendations.join(", "),
       item.patient,
     );
