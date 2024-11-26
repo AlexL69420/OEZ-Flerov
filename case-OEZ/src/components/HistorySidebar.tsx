@@ -51,62 +51,99 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
       .then((response) => {
         console.log("Response data:", response.data); // Логирование данных
 
-        let complains: string[] = response.data.complains;
-        let status: string[] = response.data.status;
-        let recommendations: string[] = response.data.recommendations;
+        if (
+          !response.data.complaints ||
+          !response.data.status ||
+          !response.data.recommendations
+        ) {
+          console.error("Missing data in response:", response.data);
+          return;
+        }
 
-        // Преобразование строки в массив, если это необходимо
-        if (typeof complains === "string") {
-          console.log("complains is string");
-          complains = JSON.parse(complains);
+        const complains: string[] = response.data.complaints;
+        const status: string[] = response.data.status;
+        const recommendations: string[] = response.data.recommendations;
+
+        console.log("Type of complains:", typeof complains);
+        console.log("Type of status:", typeof status);
+        console.log("Type of recommendations:", typeof recommendations);
+
+        // Проверка на массив
+        if (!Array.isArray(complains)) {
+          console.error("complaints is not an array:", complains);
+          return;
         }
-        if (typeof status === "string") {
-          console.log("status is string");
-          status = JSON.parse(status);
+        if (!Array.isArray(status)) {
+          console.error("status is not an array:", status);
+          return;
         }
-        if (typeof recommendations === "string") {
-          console.log("recommendations is string");
-          recommendations = JSON.parse(recommendations);
+        if (!Array.isArray(recommendations)) {
+          console.error("recommendations is not an array:", recommendations);
+          return;
+        }
+
+        // Проверка на тип элементов массива
+        if (!complains.every((item) => typeof item === "string")) {
+          console.error("complaints contains non-string elements:", complains);
+          return;
+        }
+        if (!status.every((item) => typeof item === "string")) {
+          console.error("status contains non-string elements:", status);
+          return;
+        }
+        if (!recommendations.every((item) => typeof item === "string")) {
+          console.error(
+            "recommendations contains non-string elements:",
+            recommendations,
+          );
+          return;
         }
 
         if (Array.isArray(complains)) {
-          console.log("complains is not an array");
-        }
-
-        if (Array.isArray(status)) {
-          console.log("status is not an array");
-        }
-
-        if (Array.isArray(recommendations)) {
-          console.log("recommendations is not an array");
-        }
-
-        // Проверка на массив
-        if (
-          Array.isArray(complains) &&
-          Array.isArray(status) &&
-          Array.isArray(recommendations)
-        ) {
-          const scomplains: string = complains.join(", ");
-          const sstatus: string = status.join(", ");
-          const srecommendations: string = recommendations.join(", ");
           setCard(
-            response.data.diagnosis,
+            String(response.data.diagnosis),
             String(response.data.visiting),
-            scomplains,
-            sstatus,
+            String(complains.join(", ")),
+            String(status.join(", ")),
             String(response.data.anamnesis),
             String(response.data.history),
-            srecommendations,
-            response.data.patient,
+            String(recommendations.join(", ")),
+            String(response.data.patient),
+          );
+        } else if (typeof complains === "string") {
+          setCard(
+            String(response.data.diagnosis),
+            String(response.data.visiting),
+            String(complains),
+            String(status),
+            String(response.data.anamnesis),
+            String(response.data.history),
+            String(recommendations),
+            String(response.data.patient),
           );
         } else {
-          console.log("somebody is not an array");
-
-          console.log(typeof complains);
-          console.log(typeof recommendations);
-          console.log(typeof status);
+          setCard(
+            String(response.data.diagnosis),
+            String(response.data.visiting),
+            String(complains),
+            String(status),
+            String(response.data.anamnesis),
+            String(response.data.history),
+            String(recommendations),
+            String(response.data.patient),
+          );
         }
+
+        setCard(
+          String(response.data.diagnosis),
+          String(response.data.visiting),
+          complains.join(", "),
+          status.join(", "),
+          String(response.data.anamnesis),
+          String(response.data.history),
+          recommendations.join(", "),
+          String(response.data.patient),
+        );
       })
       .catch((err) => {
         console.error(err);
