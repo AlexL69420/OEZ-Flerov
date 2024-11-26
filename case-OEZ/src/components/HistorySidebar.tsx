@@ -68,29 +68,26 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
 
         // Проверка на массив
         if (
-          !Array.isArray(complains) ||
-          !Array.isArray(status) ||
-          !Array.isArray(recommendations)
+          Array.isArray(complains) &&
+          Array.isArray(status) &&
+          Array.isArray(recommendations)
         ) {
-          console.error(
-            "Data is not an array:",
-            complains,
-            status,
-            recommendations,
+          const scomplains: string = complains.join(", ");
+          const sstatus: string = status.join(", ");
+          const srecommendations: string = recommendations.join(", ");
+          setCard(
+            response.data.diagnosis,
+            String(response.data.visiting),
+            scomplains,
+            sstatus,
+            String(response.data.anamnesis),
+            String(response.data.history),
+            srecommendations,
+            response.data.patient,
           );
-          return;
+        } else {
+          console.log("somebody is not an array");
         }
-
-        setCard(
-          response.data.diagnosis,
-          String(response.data.visiting),
-          complains.join(", "),
-          status.join(", "),
-          String(response.data.anamnesis),
-          String(response.data.history),
-          recommendations.join(", "),
-          response.data.patient,
-        );
       })
       .catch((err) => {
         console.error(err);
