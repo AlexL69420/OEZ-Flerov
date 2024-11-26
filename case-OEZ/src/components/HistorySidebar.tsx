@@ -4,6 +4,8 @@ import { Button } from "flowbite-react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+import {LOCAL_API_URL} from '../enviroment.ts'
+
 ("use client");
 
 export default function HistorySidebar() {
@@ -14,16 +16,18 @@ export default function HistorySidebar() {
 
     useEffect(() => {
         if (isAuthenticated) {
+            const test_token = localStorage.getItem("accessToken");
             // Делаем запрос только если пользователь аутентифицирован
+            console.log(" (history) access token is ", test_token);
             axios
-                .get("http://localhost:8000/cards/api/medicine/history/") // Проверьте URL на опечатку "ttp"
+                .get(`${LOCAL_API_URL}cards/api/medicine/history/`,
+                    {headers: {Authorization: `Bearer ${test_token}`}}) // Проверьте URL на опечатку "ttp"
                 .then((response) => {
                     setHistory(response.data); // Устанавливаем данные из ответа
                     setLoading(false);
                 })
                 .catch((err) => {
                     console.error(err);
-                    setError("Не удалось загрузить историю диагнозов");
                     setLoading(false);
                 });
         }
@@ -74,7 +78,7 @@ export default function HistorySidebar() {
                                 key={item.id}
                                 className="p-2 my-2 border rounded shadow-md dark:bg-slate-700"
                             >
-                                <h3 className="text-lg font-semibold">{item.name}</h3>
+                                <h3 className="text-lg font-semibold">номер карточки {item.id}</h3>
                                 <p className="text-sm text-gray-500">
                                     Дата создания: {new Date(item.created_at).toLocaleString()}
                                 </p>
