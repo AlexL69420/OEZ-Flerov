@@ -25,6 +25,7 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true); // Для отображения загрузки
   const [error, setError] = useState(null); // Для обработки ошибок;
+  const [item, setItem] = useState();
 
   /*
   type Item = {
@@ -42,17 +43,26 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
   };
   */
 
-  const handleCardSelection = (item) => {
-    setCard(
-      item.diagnosis,
-      String(item.visiting),
-      item.complains.join(", "),
-      item.status.join(", "),
-      String(item.anamnesis),
-      String(item.history),
-      item.recommendations.join(", "),
-      item.patient,
-    );
+  const handleCardSelection = (id: number) => {
+    axios
+      .get(`${LOCAL_API_URL}cards/api/medicine/${id}/get_card/`)
+      .then((response) => {
+        setItem(response.data);
+        setCard(
+          item.diagnosis,
+          String(item.visiting),
+          item.complains.join(", "),
+          item.status.join(", "),
+          String(item.anamnesis),
+          String(item.history),
+          item.recommendations.join(", "),
+          item.patient,
+        );
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -117,7 +127,7 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
           <ul className="w-full">
             {history.map((item) => (
               <li
-                onClick={() => handleCardSelection(item)}
+                onClick={() => handleCardSelection(item.id)}
                 key={item.id}
                 className="my-2 rounded border p-2 shadow-md hover:cursor-pointer dark:bg-slate-700"
               >
