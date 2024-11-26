@@ -9,6 +9,7 @@ import { BsArrowBarLeft } from "react-icons/bs";
 import HistorySidebar from "./HistorySidebar";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { LOCAL_API_URL } from "../enviroment";
 
 export function MainContent() {
   const [diagnosis, setDiagnosis] = useState("");
@@ -23,9 +24,28 @@ export function MainContent() {
   const [aiResponse, setAiResponse] = useState("");
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
 
-  const { isAuthenticated } = useAuth();
-
+  const { isAuthenticated, refresh } = useAuth();
   const navigate = useNavigate();
+
+  const setCard = (
+    diagnosis: string,
+    visit: string,
+    complains: string,
+    status: string,
+    anamnesis: string,
+    history: string,
+    recommendations: string,
+    patient: string,
+  ) => {
+    setDiagnosis(diagnosis);
+    setVisit(visit);
+    setComplaints(complains);
+    setStatus(status);
+    setAnamnesis(anamnesis);
+    setHistory(history);
+    setRecommendations(recommendations);
+    setPatient(patient);
+  };
 
   const getNeuroResponse = () => {
     const data = {
@@ -37,7 +57,7 @@ export function MainContent() {
 
     axios
       .post(
-        "http://localhost:8000/cards/api/ai-recommendations/create_suggestion/",
+        `${LOCAL_API_URL}cards/api/ai-recommendations/create_suggestion/`,
         data,
       )
       .then((response) => {
@@ -49,7 +69,7 @@ export function MainContent() {
       });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!isAuthenticated) {
       navigate("/Registration");
       return;
@@ -65,9 +85,17 @@ export function MainContent() {
       history,
       recommendations,
     };
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      refresh();
+    }
+    console.log("accessToken", accessToken);
 
-    axios
-      .post("http://localhost:8000/cards/api/medicine/create_card/", data)
+    await axios
+      .post(`${LOCAL_API_URL}cards/api/medicine/create_card/`, data, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+
       .then((response) => {
         console.log("Card created successfully:", response.data);
       })
@@ -83,7 +111,7 @@ export function MainContent() {
   return (
     <main className="flex min-h-screen w-screen flex-row justify-center  gap-2 bg-white px-1 py-3 text-black dark:bg-slate-600 dark:text-white">
       <div className="flex flex-row">
-        {isHistoryVisible && <HistorySidebar />}
+        {isHistoryVisible && <HistorySidebar setCard={setCard} />}
         <Button
           color="blue"
           className="h-6 w-8 items-center bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"

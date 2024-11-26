@@ -22,6 +22,7 @@ export default function Profile() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // запрос на смену пароля
     } catch (error) {
       console.error("Login failed", error);
     }

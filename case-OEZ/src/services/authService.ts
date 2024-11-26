@@ -1,13 +1,20 @@
 // src/services/authService.ts
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5174/Registration';
+import {LOCAL_API_URL} from '../enviroment.ts';
 
-export const login = async (email: string, password: string) => {
-  
-    const response = await axios.post(`${API_URL}/login`, { email, password });
+// const API_URL = 'http://localhost:8000/';
+
+export const login = async (username: string, password: string) => {
+    const response = await axios.post(`${LOCAL_API_URL}auth/jwt/create/`, { username, password });
+    console.log(response);
+    const {access, refresh} = response.data;
+    console.log(access);
+    console.log(refresh);
+    localStorage.setItem("accessToken", access);
+    localStorage.setItem("refreshToken", refresh);
+
+    const test_token = localStorage.getItem("accessToken");
+    console.log("test:", test_token);
     return response.data;
-  
-    
-  
 };
