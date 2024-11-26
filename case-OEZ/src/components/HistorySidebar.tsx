@@ -11,7 +11,7 @@ interface HistorySidebarProps {
   setCard: (
     diagnosis: string,
     visit: string,
-    complains: string,
+    complaints: string,
     status: string,
     anamnesis: string,
     history: string,
@@ -49,65 +49,24 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
         headers: { Authorization: `Bearer ${test_token}` },
       })
       .then((response) => {
-        console.log("Response data:", response.data); // Логирование данных
+            console.log("Response data:", response.data); // Логирование данных
 
-        let complains: string[] = response.data.complains;
-        let status: string[] = response.data.status;
-        let recommendations: string[] = response.data.recommendations;
+            const complaints = String(response.data.complaints);
+            const status = String(response.data.status);
+            const recommendations = String(response.data.recommendations);
 
-        // Преобразование строки в массив, если это необходимо
-        if (typeof complains === "string") {
-          console.log("complains is string");
-          complains = JSON.parse(complains);
-        }
-        if (typeof status === "string") {
-          console.log("status is string");
-          status = JSON.parse(status);
-        }
-        if (typeof recommendations === "string") {
-          console.log("recommendations is string");
-          recommendations = JSON.parse(recommendations);
-        }
-
-        if (Array.isArray(complains)) {
-          console.log("complains is not an array");
-        }
-
-        if (Array.isArray(status)) {
-          console.log("status is not an array");
-        }
-
-        if (Array.isArray(recommendations)) {
-          console.log("recommendations is not an array");
-        }
-
-        // Проверка на массив
-        if (
-          Array.isArray(complains) &&
-          Array.isArray(status) &&
-          Array.isArray(recommendations)
-        ) {
-          const scomplains: string = complains.join(", ");
-          const sstatus: string = status.join(", ");
-          const srecommendations: string = recommendations.join(", ");
-          setCard(
-            response.data.diagnosis,
-            String(response.data.visiting),
-            scomplains,
-            sstatus,
-            String(response.data.anamnesis),
-            String(response.data.history),
-            srecommendations,
-            response.data.patient,
-          );
-        } else {
-          console.log("somebody is not an array");
-
-          console.log(typeof complains);
-          console.log(typeof recommendations);
-          console.log(typeof status);
-        }
-      })
+            setCard(
+                response.data.diagnosis,
+                response.data.visit,
+                complaints,
+                status,
+                String(response.data.anamnesis),
+                String(response.data.history),
+                recommendations,
+                response.data.patient,
+            )
+          }
+      )
       .catch((err) => {
         console.error(err);
         setLoading(false);
