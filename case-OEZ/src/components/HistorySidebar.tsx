@@ -25,7 +25,6 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true); // Для отображения загрузки
   const [error, setError] = useState(null); // Для обработки ошибок;
-  const [item, setItem] = useState();
 
   /*
   type Item = {
@@ -44,19 +43,21 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
   */
 
   const handleCardSelection = (id: number) => {
+    const test_token = localStorage.getItem("accessToken");
     axios
-      .get(`${LOCAL_API_URL}cards/api/medicine/${id}/get_card/`)
+      .get(`${LOCAL_API_URL}cards/api/medicine/${id}/get_card/`, {
+        headers: { Authorization: `Bearer ${test_token}` },
+      })
       .then((response) => {
-        setItem(response.data);
         setCard(
-          item.diagnosis,
-          String(item.visiting),
-          item.complains.join(", "),
-          item.status.join(", "),
-          String(item.anamnesis),
-          String(item.history),
-          item.recommendations.join(", "),
-          item.patient,
+          response.data.diagnosis,
+          String(response.data.visiting),
+          response.data.complains.join(", "),
+          response.data.status.join(", "),
+          String(response.data.anamnesis),
+          String(response.data.history),
+          response.data.recommendations.join(", "),
+          response.data.patient,
         );
       })
       .catch((err) => {
