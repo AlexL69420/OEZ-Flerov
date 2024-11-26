@@ -57,13 +57,28 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
 
         // Преобразование строки в массив, если это необходимо
         if (typeof complains === "string") {
+          console.log("complains is string");
           complains = JSON.parse(complains);
         }
         if (typeof status === "string") {
+          console.log("status is string");
           status = JSON.parse(status);
         }
         if (typeof recommendations === "string") {
+          console.log("recommendations is string");
           recommendations = JSON.parse(recommendations);
+        }
+
+        if (Array.isArray(complains)) {
+          console.log("complains is not an array");
+        }
+
+        if (Array.isArray(status)) {
+          console.log("status is not an array");
+        }
+
+        if (Array.isArray(recommendations)) {
+          console.log("recommendations is not an array");
         }
 
         // Проверка на массив
@@ -87,6 +102,10 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
           );
         } else {
           console.log("somebody is not an array");
+
+          console.log(typeof complains);
+          console.log(typeof recommendations);
+          console.log(typeof status);
         }
       })
       .catch((err) => {
