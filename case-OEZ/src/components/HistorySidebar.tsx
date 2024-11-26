@@ -45,11 +45,11 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
   const handleCardSelection = (item) => {
     setCard(
       item.diagnosis,
-      item.visiting.toString(),
+      String(item.visiting),
       item.complains.join(", "),
       item.status.join(", "),
-      item.anamnesis.toString,
-      item.history.toString(),
+      String(item.anamnesis),
+      String(item.history),
       item.recommendations.join(", "),
       item.patient,
     );
@@ -119,7 +119,7 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
               <li
                 onClick={() => handleCardSelection(item)}
                 key={item.id}
-                className="my-2 rounded border p-2 shadow-md dark:bg-slate-700"
+                className="my-2 rounded border p-2 shadow-md hover:cursor-pointer dark:bg-slate-700"
               >
                 <h3 className="text-lg font-semibold">
                   номер карточки {item.id}
