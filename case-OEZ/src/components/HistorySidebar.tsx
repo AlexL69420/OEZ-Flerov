@@ -29,7 +29,7 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
   /*
   type Item = {
     id: number;
-    created_at: number;
+    created_at: any;
     visiting: number;
     ai_suggestion: boolean;
     anamnesis: number;
@@ -49,14 +49,17 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
         headers: { Authorization: `Bearer ${test_token}` },
       })
       .then((response) => {
+        const complains: string[] = response.data.complains;
+        const status: string[] = response.data.status;
+        const recommendations: string[] = response.data.recommendations;
         setCard(
           response.data.diagnosis,
           String(response.data.visiting),
-          response.data.complains.join(", "),
-          response.data.status.join(", "),
+          complains.join(", "),
+          status.join(", "),
           String(response.data.anamnesis),
           String(response.data.history),
-          response.data.recommendations.join(", "),
+          recommendations.join(", "),
           response.data.patient,
         );
       })
