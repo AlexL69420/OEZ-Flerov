@@ -49,9 +49,38 @@ export default function HistorySidebar({ setCard }: HistorySidebarProps) {
         headers: { Authorization: `Bearer ${test_token}` },
       })
       .then((response) => {
-        const complains: string[] = response.data.complains;
-        const status: string[] = response.data.status;
-        const recommendations: string[] = response.data.recommendations;
+        console.log("Response data:", response.data); // Логирование данных
+
+        let complains: string[] = response.data.complains;
+        let status: string[] = response.data.status;
+        let recommendations: string[] = response.data.recommendations;
+
+        // Преобразование строки в массив, если это необходимо
+        if (typeof complains === "string") {
+          complains = JSON.parse(complains);
+        }
+        if (typeof status === "string") {
+          status = JSON.parse(status);
+        }
+        if (typeof recommendations === "string") {
+          recommendations = JSON.parse(recommendations);
+        }
+
+        // Проверка на массив
+        if (
+          !Array.isArray(complains) ||
+          !Array.isArray(status) ||
+          !Array.isArray(recommendations)
+        ) {
+          console.error(
+            "Data is not an array:",
+            complains,
+            status,
+            recommendations,
+          );
+          return;
+        }
+
         setCard(
           response.data.diagnosis,
           String(response.data.visiting),
