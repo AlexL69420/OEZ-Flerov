@@ -135,14 +135,7 @@ export function MainContent() {
                 value={patient}
                 onChange={(e) => setPatient(e.target.value)}
               />
-              <Link to="/Help">
-                <Button
-                  color="blue"
-                  className="max-h-12 max-w-12 items-center rounded-full bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"
-                >
-                  ?
-                </Button>
-              </Link>
+
             </div>
           </div>
 
@@ -159,20 +152,13 @@ export function MainContent() {
                 value={history}
                 onChange={(e) => setHistory(e.target.value)}
               />
-              <Link to="/Help">
-                <Button
-                  color="blue"
-                  className="max-h-12 max-w-12 items-center rounded-full bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"
-                >
-                  ?
-                </Button>
-              </Link>
+
             </div>
           </div>
 
           <div className="flex w-11/12 flex-col">
             <div className="mb-2 block">
-              <Label htmlFor="base3" value="Введите симптомы" />
+              <Label htmlFor="base3" value="Жалобы" />
             </div>
             <div className="flex flex-row items-center gap-2">
               <TextInput
@@ -183,20 +169,12 @@ export function MainContent() {
                 value={complaints}
                 onChange={(e) => setComplaints(e.target.value)}
               />
-              <Link to="/Help">
-                <Button
-                  color="blue"
-                  className="max-h-12 max-w-12 items-center rounded-full bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"
-                >
-                  ?
-                </Button>
-              </Link>
+
             </div>
           </div>
-
           <div className="flex w-11/12 flex-col">
             <div className="mb-2 block">
-              <Label htmlFor="base4" value="Введите осложнения" />
+              <Label htmlFor="base4" value="Объективный статус" />
             </div>
             <div className="flex flex-row items-center gap-2">
               <TextInput
@@ -207,14 +185,7 @@ export function MainContent() {
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
               />
-              <Link to="/Help">
-                <Button
-                  color="blue"
-                  className="max-h-12 max-w-12 items-center rounded-full bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"
-                >
-                  ?
-                </Button>
-              </Link>
+
             </div>
           </div>
 
@@ -232,14 +203,7 @@ export function MainContent() {
                 value={diagnosis}
                 onChange={(e) => setDiagnosis(e.target.value)}
               />
-              <Link to="/Help">
-                <Button
-                  color="blue"
-                  className="max-h-12 max-w-12 items-center rounded-full bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"
-                >
-                  ?
-                </Button>
-              </Link>
+
             </div>
           </div>
 
@@ -256,20 +220,13 @@ export function MainContent() {
                 value={recommendations}
                 onChange={(e) => setRecommendations(e.target.value)}
               />
-              <Link to="/Help">
-                <Button
-                  color="blue"
-                  className="max-h-12 max-w-12 items-center rounded-full bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"
-                >
-                  ?
-                </Button>
-              </Link>
+
             </div>
           </div>
 
           <div className="flex w-11/12 flex-col">
             <div className="mb-2 block">
-              <Label htmlFor="base7" value="Введите анамнезис" />
+              <Label htmlFor="base7" value="Анамнез заболевания" />
             </div>
             <div className="flex flex-row items-center gap-2">
               <TextInput
@@ -280,14 +237,7 @@ export function MainContent() {
                 value={anamnesis}
                 onChange={(e) => setAnamnesis(e.target.value)}
               />
-              <Link to="/Help">
-                <Button
-                  color="blue"
-                  className="max-h-12 max-w-12 items-center rounded-full bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"
-                >
-                  ?
-                </Button>
-              </Link>
+
             </div>
           </div>
 
@@ -304,14 +254,7 @@ export function MainContent() {
                 value={visit}
                 onChange={(e) => setVisit(e.target.value)}
               />
-              <Link to="/Help">
-                <Button
-                  color="blue"
-                  className="max-h-12 max-w-12 items-center rounded-full bg-blue-700 p-1 text-white dark:bg-slate-800 dark:text-slate-500 dark:hover:bg-slate-700"
-                >
-                  ?
-                </Button>
-              </Link>
+
             </div>
           </div>
 
